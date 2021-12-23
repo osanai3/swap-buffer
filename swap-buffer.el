@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 by Koichi Osanai
 
 ;; Author: Koichi Osanai <osanai3@gmail.com>
-;; Version: 0.1
+;; Version: 0.2
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -24,20 +24,16 @@
 
 ;;; Code:
 
-(defun swap-buffer () (interactive)
-  (let (
-        (current-window (selected-window))
-        (next-window (next-window (selected-window) 0))
-        )
-    (let (
-          (current-buffer (window-buffer current-window))
-          (next-buffer (window-buffer next-window))
-          )
+;;;###autoload
+(defun swap-buffer ()
+  "Swap buffer with next window."
+  (interactive)
+  (let ((current-window (selected-window))
+        (next-window (next-window (selected-window) 0)))
+    (let ((current-buffer (window-buffer current-window))
+          (next-buffer (window-buffer next-window)))
       (with-selected-window current-window (switch-to-buffer next-buffer))
-      (with-selected-window next-window (switch-to-buffer current-buffer))
-      )
-    ))
+      (with-selected-window next-window (switch-to-buffer current-buffer)))))
 
 (provide 'swap-buffer)
-
 ;;; swap-buffer.el ends here
